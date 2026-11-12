@@ -1,0 +1,152 @@
+.head {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: clamp(3rem, 7vw, 6rem);
+}
+
+.head h2 {
+  max-width: 13ch;
+}
+
+.track {
+  position: relative;
+}
+
+.path {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 44px;
+  height: 100%;
+  overflow: visible;
+}
+
+.path path {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.ghost {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+  stroke-dasharray: 3 6;
+}
+
+.line {
+  stroke: var(--accent);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px var(--accent));
+}
+
+.steps {
+  display: grid;
+  gap: clamp(3rem, 8vw, 6rem);
+  padding-left: 4rem;
+}
+
+.step {
+  position: relative;
+}
+
+.dot {
+  position: absolute;
+  left: -2.95rem;
+  top: 0.9rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid var(--accent);
+  background: var(--bg);
+  transition:
+    background-color 500ms var(--ease-out),
+    box-shadow 500ms var(--ease-out),
+    transform 500ms var(--ease-out);
+}
+
+.step:global(.is-active) .dot {
+  background: var(--accent);
+  box-shadow: 0 0 0 6px rgba(109, 141, 255, 0.18), 0 0 24px var(--accent);
+  transform: scale(1.2);
+}
+
+.card {
+  display: grid;
+  gap: 0.6rem;
+  max-width: 30rem;
+}
+
+.n {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(4rem, 3rem + 4vw, 7.5rem);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(109, 141, 255, 0.6);
+  transition:
+    color 700ms var(--ease-out),
+    -webkit-text-stroke-color 700ms var(--ease-out);
+}
+
+.step:global(.is-active) .n {
+  color: var(--accent);
+  -webkit-text-stroke-color: transparent;
+  text-shadow: 0 0 40px rgba(109, 141, 255, 0.45);
+}
+
+.title {
+  font-size: clamp(1.75rem, 1.4rem + 1.4vw, 2.75rem);
+  letter-spacing: -0.04em;
+}
+
+.body {
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+/* Desktop: wavy path in the centre, steps alternate sides. */
+@media (min-width: 900px) {
+  .path {
+    left: 50%;
+    width: 200px;
+    translate: -50% 0;
+  }
+
+  .steps {
+    padding-left: 0;
+    gap: 2rem;
+  }
+
+  .step {
+    width: 50%;
+    min-height: 15rem;
+  }
+
+  .step:nth-child(odd) {
+    padding-right: 8rem;
+    text-align: right;
+  }
+
+  .step:nth-child(odd) .card {
+    margin-left: auto;
+    justify-items: end;
+  }
+
+  .step:nth-child(even) {
+    margin-left: 50%;
+    padding-left: 8rem;
+  }
+
+  .dot {
+    top: 2.2rem;
+  }
+
+  .step:nth-child(odd) .dot {
+    left: auto;
+    right: -7px;
+  }
+
+  .step:nth-child(even) .dot {
+    left: -7px;
+  }
+}

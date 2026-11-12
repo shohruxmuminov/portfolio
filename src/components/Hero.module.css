@@ -1,0 +1,257 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: calc(var(--nav-h) + 1rem);
+  padding-bottom: 5.5rem;
+}
+
+.inner {
+  display: grid;
+  gap: clamp(1rem, 2.5vh, 2rem);
+}
+
+.topRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.75rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.clock span {
+  color: var(--status-live);
+  margin-right: 0.35rem;
+  animation: blink 2s steps(2) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+.title {
+  margin-inline: -0.04em;
+}
+
+.name {
+  display: block;
+  font-size: clamp(4.25rem, 20.4vw, 21rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 0.82;
+  white-space: nowrap;
+  padding-bottom: 0.04em;
+}
+
+/* Each split character gets its own metallic gradient. */
+.name :global(.char),
+.name:not(:has(:global(.char))) {
+  background: linear-gradient(175deg, #ffffff 25%, #b9c6ff 62%, rgba(109, 141, 255, 0.55) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bottom {
+  display: grid;
+  gap: 2.5rem;
+  align-items: end;
+}
+
+.copy {
+  display: grid;
+  gap: 1.25rem;
+  justify-items: start;
+  max-width: 40rem;
+}
+
+.headline {
+  font-size: clamp(1.75rem, 1.2rem + 2.2vw, 3rem);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+}
+
+.lede {
+  max-width: 44ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.actions > span {
+  display: inline-block;
+}
+
+/* ---------- Portrait lens ---------- */
+.lensWrap {
+  justify-self: end;
+}
+
+.lens {
+  position: relative;
+  width: clamp(190px, 20vw, 270px);
+  aspect-ratio: 1;
+  margin: 0;
+  transform-style: preserve-3d;
+}
+
+.ring {
+  position: absolute;
+  inset: -14%;
+  width: 128%;
+  height: 128%;
+  overflow: visible;
+  animation: spin 22s linear infinite;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  fill: var(--muted);
+}
+
+.lens:hover .ring {
+  animation-duration: 6s;
+  fill: var(--text);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.photo {
+  position: absolute;
+  inset: 8%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(160, 185, 255, 0.35),
+    0 0 60px rgba(109, 141, 255, 0.35),
+    0 30px 60px rgba(0, 0, 0, 0.5);
+  transform: translateZ(30px);
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 36% 30%;
+  transform: scale(1.35);
+  transform-origin: 36% 38%;
+}
+
+.glare {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at var(--mx, 30%) var(--my, 20%), rgba(255, 255, 255, 0.28), transparent 45%);
+  mix-blend-mode: soft-light;
+  pointer-events: none;
+}
+
+/* ---------- Scroll cue ---------- */
+.cue {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  translate: -50% 0;
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+.mouse {
+  display: grid;
+  justify-items: center;
+  width: 22px;
+  height: 34px;
+  padding-top: 6px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+}
+
+.mouse i {
+  width: 2px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--text);
+  animation: wheel 1.8s var(--ease-out) infinite;
+}
+
+@keyframes wheel {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 900px) {
+  .bottom {
+    grid-template-columns: 1fr auto;
+  }
+
+  .lensWrap {
+    margin-right: 3%;
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media (max-width: 899px) {
+  .hero {
+    justify-content: flex-start;
+    padding-top: calc(var(--nav-h) + 1.5rem);
+  }
+
+  .topRow {
+    flex-direction: column;
+    font-size: 0.6875rem;
+  }
+
+  .name {
+    margin-top: 18vh;
+  }
+
+  .lensWrap {
+    position: absolute;
+    top: calc(var(--nav-h) + 4.5rem);
+    right: var(--gutter);
+  }
+
+  .lens {
+    width: 118px;
+  }
+
+  .ring {
+    font-size: 15px;
+  }
+
+  .cue {
+    display: none;
+  }
+}

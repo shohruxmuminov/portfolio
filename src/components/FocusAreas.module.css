@@ -1,0 +1,318 @@
+.head {
+  display: grid;
+  gap: 1.5rem;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.intro {
+  max-width: 44ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 0.96rem + 0.25vw, 1.15rem);
+}
+
+.grid {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.cardWrap {
+  perspective: 1000px;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+  align-content: start;
+  height: 100%;
+  min-height: 25rem;
+  padding: 1.5rem 1.5rem 1.75rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, rgba(20, 28, 46, 0.72), rgba(8, 11, 19, 0.72));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: border-color 400ms var(--ease-out);
+}
+
+.card:hover {
+  border-color: rgba(109, 141, 255, 0.45);
+}
+
+.spot {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(109, 141, 255, 0.18), transparent 45%);
+  opacity: 0;
+  transition: opacity 400ms ease;
+}
+
+.card:hover .spot {
+  opacity: 1;
+}
+
+.scene {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 11rem;
+  margin-bottom: 0.75rem;
+  perspective: 600px;
+  transform: translateZ(40px);
+}
+
+.n {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+}
+
+.title {
+  font-size: clamp(1.5rem, 1.3rem + 0.6vw, 1.9rem);
+  letter-spacing: -0.035em;
+  transform: translateZ(20px);
+}
+
+.body {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* Pause all loops when the card is off screen. */
+.card:not(:global(.is-inview)) * {
+  animation-play-state: paused !important;
+}
+
+/* ---------- Web: floating layered windows ---------- */
+.layers {
+  position: relative;
+  width: 120px;
+  height: 84px;
+  transform-style: preserve-3d;
+  transform: rotateX(58deg) rotateZ(-38deg);
+}
+
+.layers span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(109, 141, 255, 0.75);
+  border-radius: 8px;
+  background: rgba(109, 141, 255, calc(0.06 + var(--i) * 0.06));
+  box-shadow: 0 0 24px rgba(109, 141, 255, 0.25);
+  animation: lift 3.6s var(--ease-in-out) infinite;
+  animation-delay: calc(var(--i) * -0.4s);
+  --z: calc(var(--i) * 26px);
+  transform: translateZ(var(--z));
+}
+
+.layers span i {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 10px;
+  height: 1px;
+  background: rgba(103, 221, 235, 0.8);
+  box-shadow:
+    0 14px 0 rgba(163, 173, 188, 0.4),
+    0 26px 0 rgba(163, 173, 188, 0.3);
+}
+
+@keyframes lift {
+  50% {
+    transform: translateZ(calc(var(--z) * 1.9 + 6px));
+  }
+}
+
+/* ---------- AI: atom ---------- */
+.atom {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  transform-style: preserve-3d;
+  animation: tumble 14s linear infinite;
+}
+
+.orbit {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(103, 221, 235, 0.55);
+  transform-style: preserve-3d;
+  transform: rotateZ(var(--a)) rotateX(72deg);
+}
+
+.electronPath {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  animation: spin 2.4s linear infinite;
+}
+
+.electronPath::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: calc(50% - 4px);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 14px var(--cyan);
+}
+
+.core {
+  position: absolute;
+  inset: calc(50% - 11px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff, var(--accent) 60%);
+  box-shadow: 0 0 30px var(--accent);
+  animation: beat 1.8s ease-in-out infinite;
+}
+
+@keyframes tumble {
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes beat {
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+/* ---------- Desktop: tile wave ---------- */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 34px);
+  gap: 8px;
+  transform-style: preserve-3d;
+  transform: rotateX(58deg) rotateZ(-45deg);
+}
+
+.tiles span {
+  height: 34px;
+  border-radius: 7px;
+  border: 1px solid rgba(196, 187, 255, 0.7);
+  background: rgba(196, 187, 255, 0.1);
+  animation: wave 2.8s var(--ease-in-out) infinite;
+  animation-delay: calc(var(--d) * 0.18s);
+}
+
+@keyframes wave {
+  0%,
+  100% {
+    transform: translateZ(0);
+    background: rgba(196, 187, 255, 0.08);
+  }
+  40% {
+    transform: translateZ(26px);
+    background: rgba(109, 141, 255, 0.45);
+    box-shadow: 0 0 20px rgba(109, 141, 255, 0.5);
+  }
+}
+
+/* ---------- 3D: cube within a cube ---------- */
+.hyper {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  transform-style: preserve-3d;
+}
+
+.cube {
+  position: absolute;
+  transform-style: preserve-3d;
+}
+
+.cube span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(109, 141, 255, 0.8);
+  background: rgba(109, 141, 255, 0.05);
+}
+
+.outer {
+  inset: 0;
+  --h: 45px;
+  animation: cubeA 10s linear infinite;
+}
+
+.inner {
+  inset: 25px;
+  --h: 20px;
+  animation: cubeB 7s linear infinite;
+}
+
+.inner span {
+  border-color: rgba(103, 221, 235, 0.9);
+  background: rgba(103, 221, 235, 0.12);
+}
+
+.front {
+  transform: translateZ(var(--h));
+}
+
+.back {
+  transform: rotateY(180deg) translateZ(var(--h));
+}
+
+.left {
+  transform: rotateY(-90deg) translateZ(var(--h));
+}
+
+.right {
+  transform: rotateY(90deg) translateZ(var(--h));
+}
+
+.top {
+  transform: rotateX(90deg) translateZ(var(--h));
+}
+
+.bottom {
+  transform: rotateX(-90deg) translateZ(var(--h));
+}
+
+@keyframes cubeA {
+  from {
+    transform: rotateX(-22deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(-22deg) rotateY(360deg);
+  }
+}
+
+@keyframes cubeB {
+  from {
+    transform: rotateX(0deg) rotateY(360deg) rotateZ(45deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(0deg) rotateZ(45deg);
+  }
+}
+
+@media (min-width: 640px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .cardWrap:nth-child(even) {
+    margin-top: 3rem;
+  }
+}

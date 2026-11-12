@@ -1,0 +1,65 @@
+.marquee {
+  position: relative;
+  padding-block: clamp(3rem, 8vw, 6rem);
+  overflow: hidden;
+}
+
+.tilt {
+  transform: rotate(-3deg);
+  display: grid;
+  gap: 0.25rem;
+}
+
+.row {
+  overflow: hidden;
+  padding-block: 0.6rem;
+  border-block: 1px solid var(--line);
+  background: rgba(6, 8, 14, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.group {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+  padding-right: clamp(1.25rem, 3vw, 2.5rem);
+  font-size: clamp(2.25rem, 1.2rem + 4.5vw, 5.5rem);
+  font-weight: 500;
+  letter-spacing: -0.045em;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.star {
+  width: 0.42em;
+  height: 0.42em;
+  fill: var(--accent);
+  animation: spin 8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.outline .item {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(244, 245, 247, 0.55);
+}
+
+.outline .star {
+  fill: var(--cyan);
+}

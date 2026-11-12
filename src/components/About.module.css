@@ -1,0 +1,146 @@
+.grid {
+  display: grid;
+  gap: 3.5rem;
+}
+
+.side {
+  display: grid;
+  gap: 1.75rem;
+  align-content: start;
+}
+
+.cardWrap {
+  margin-top: 1.5rem;
+  max-width: 380px;
+}
+
+.card {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  transform-style: preserve-3d;
+}
+
+.media {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  aspect-ratio: 4 / 5;
+  box-shadow:
+    0 0 0 1px rgba(160, 185, 255, 0.22),
+    0 40px 80px -20px rgba(0, 0, 0, 0.7),
+    0 0 80px -10px rgba(109, 141, 255, 0.35);
+}
+
+.media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Holographic sheen that follows the cursor. */
+.holo {
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  pointer-events: none;
+  background:
+    radial-gradient(circle at var(--mx, 50%) var(--my, 30%), rgba(255, 255, 255, 0.22), transparent 40%),
+    linear-gradient(
+      115deg,
+      transparent 30%,
+      rgba(103, 221, 235, 0.14) 45%,
+      rgba(196, 187, 255, 0.16) 52%,
+      transparent 65%
+    );
+  background-size:
+    100% 100%,
+    250% 250%;
+  background-position:
+    0 0,
+    var(--mx, 50%) var(--my, 50%);
+  mix-blend-mode: screen;
+}
+
+.badge {
+  position: absolute;
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(6, 8, 14, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--line-strong);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transform: translateZ(50px);
+}
+
+.text {
+  display: grid;
+  gap: 1.75rem;
+  align-content: start;
+}
+
+.lead {
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 2.75rem);
+  line-height: 1.18;
+  letter-spacing: -0.035em;
+}
+
+.para {
+  max-width: 58ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 0.96rem + 0.25vw, 1.15rem);
+  line-height: 1.7;
+}
+
+.facts {
+  display: grid;
+  margin: 1rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.facts div {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.facts dt {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding-top: 0.25rem;
+}
+
+.facts dd {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.signature {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 2.4rem;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(3rem, 7vw, 7rem);
+  }
+
+  .text {
+    padding-top: 5.5rem;
+  }
+}

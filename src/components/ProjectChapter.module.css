@@ -1,0 +1,229 @@
+.chapter {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-block: clamp(4rem, 8vw, 6rem);
+}
+
+.grid {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+.text {
+  position: relative;
+  display: grid;
+  gap: 1.4rem;
+  justify-items: start;
+  z-index: 1;
+}
+
+.bigIndex {
+  position: absolute;
+  top: -0.62em;
+  right: 0;
+  z-index: -1;
+  font-size: clamp(9rem, 22vw, 20rem);
+  font-weight: 600;
+  letter-spacing: -0.07em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(109, 141, 255, 0.28);
+  pointer-events: none;
+  user-select: none;
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+}
+
+.counter {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.counter span {
+  color: var(--dim);
+}
+
+.title {
+  font-size: clamp(2.4rem, 1.4rem + 3.6vw, 4.6rem);
+  letter-spacing: -0.05em;
+  line-height: 0.98;
+  max-width: 12ch;
+}
+
+.summary {
+  max-width: 46ch;
+  color: var(--muted);
+  font-size: clamp(1rem, 0.96rem + 0.25vw, 1.15rem);
+}
+
+.explores {
+  display: grid;
+  gap: 0.15rem;
+  width: 100%;
+  max-width: 30rem;
+  border-top: 1px solid var(--line);
+}
+
+.explores li {
+  position: relative;
+  padding: 0.6rem 0 0.6rem 1.6rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 0.95rem;
+}
+
+.explores li::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border: 1px solid var(--accent);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tags li {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(109, 141, 255, 0.1);
+  border: 1px solid rgba(109, 141, 255, 0.2);
+  font-size: 0.8125rem;
+  color: #c9d3ff;
+}
+
+/* ---------- Stage frame for the 3D sculpture ---------- */
+.stage {
+  position: relative;
+  display: none;
+  aspect-ratio: 1.15;
+  width: 100%;
+}
+
+.corner {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-color: var(--line-strong);
+  border-style: solid;
+  border-width: 0;
+}
+
+.tl {
+  top: 0;
+  left: 0;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+
+.tr {
+  top: 0;
+  right: 0;
+  border-top-width: 1px;
+  border-right-width: 1px;
+}
+
+.bl {
+  bottom: 0;
+  left: 0;
+  border-bottom-width: 1px;
+  border-left-width: 1px;
+}
+
+.br {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+.caption {
+  position: absolute;
+  left: 0;
+  bottom: -2rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+
+/* A slow scanning line across the frame. */
+.scan {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(103, 221, 235, 0.5), transparent);
+  animation: scan 5s var(--ease-in-out) infinite;
+}
+
+@keyframes scan {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(calc(min(42vw, 560px)));
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+
+  .stage {
+    display: block;
+  }
+
+  .right .text {
+    order: 2;
+  }
+}
+
+/* Mobile: the sculpture floats in the upper part of the screen. */
+@media (max-width: 899px) {
+  .chapter {
+    align-items: flex-end;
+    padding-top: 52svh;
+  }
+
+  .text {
+    padding: 1.5rem 0 0;
+  }
+
+  .text::before {
+    content: "";
+    position: absolute;
+    inset: -1.5rem calc(var(--gutter) * -1) -2rem;
+    z-index: -2;
+    background: linear-gradient(180deg, transparent, rgba(6, 8, 14, 0.82) 18%, rgba(6, 8, 14, 0.92));
+  }
+
+  .bigIndex {
+    top: -0.55em;
+  }
+}
